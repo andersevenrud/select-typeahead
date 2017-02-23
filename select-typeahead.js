@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.5.4
+ * @version 0.5.5
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -35,7 +35,7 @@
    * Replace localized characters
    */
   function removeLocale(str) {
-    return str.replace(/[ÀÁÂÃÄÅÅ]/g, 'A')
+    return str.replace(/[ÀÁÂÃÄÅÅÆ]/g, 'A')
       .replace(/[àáâãäåæ]/g, 'a')
       .replace(/[ÈÉÊË]/g, 'E')
       .replace(/[ØÖ]/g, 'O')

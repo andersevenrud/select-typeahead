@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.5.4
+ * @version 0.5.5
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -31,18 +31,37 @@
 
 .SelectTypeahead {
   position : relative;
+  border : 1px solid #e6e6e6;
+  color : #000;
 }
   .SelectTypeahead * {
     box-sizing : border-box;
   }
   .SelectTypeahead > button {
+    margin : 0;
+    padding : 0;
     display : inline-block;
     text-align : center;
     width : 20px;
+    cursor : pointer;
+    font : inherit;
+    white-space: nowrap;
+    line-height : 1;
+  }
+  .SelectTypeahead > button::-moz-focus-inner {
+    border : 0;
+    padding : 0;
   }
   .SelectTypeahead > input {
+    margin : 0;
+    padding : 0;
     display : inline-block;
     width : calc(100% - 20px);
+    font : inherit;
+    white-space: nowrap;
+    overflow : hidden;
+    line-height : 1;
+    border : 0 none;
   }
   .SelectTypeahead > ul {
     display : none;
@@ -55,6 +74,8 @@
     max-height : 200px;
     overflow : auto;
     z-index : 9999999;
+    border : 1px solid currentColor;
+    background : #fff;
   }
     .SelectTypeahead > ul > li {
       margin : 0;
@@ -66,4 +87,9 @@
     }
     .SelectTypeahead > ul > li > span {
       white-space : nowrap;
+    }
+
+    .SelectTypeahead > ul > li.active,
+    .SelectTypeahead > ul > li:hover {
+      background-color : #e6e6e6;
     }

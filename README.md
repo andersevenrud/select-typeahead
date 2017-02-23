@@ -55,6 +55,18 @@ $('el').SelectTypeahead({});
 .blur()
 
 .destroy()
+
+// Options:
+
+fnDataFilter: function(str) {
+  return str;
+}
+fnInputFilter: function(str) {
+  return str;
+}
+fnMatch: function(input, entry) {
+  return entry.indexOf(input) !== -1;
+}
 ```
 
 ## Installation
@@ -63,6 +75,7 @@ Just use the included files. You can also get this package via [npm](https://www
 
 ## Changelog
 
+* **0.5.5** - Updated removeLocale() and CSS
 * **0.5.4** - Bugfixes
 * **0.5.3** - Bugfixes
 * **0.5.2** - Added module export support
