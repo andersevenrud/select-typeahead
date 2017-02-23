@@ -1,0 +1,26 @@
+{
+  "name": "select-typeahead",
+  "version": "0.5.4",
+  "description": "A configurable, super simple and extremely fast typeahead solution for `<select>` elements.",
+  "main": "select-typeahead.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andersevenrud/select-typeahead.git"
+  },
+  "keywords": [
+    "select",
+    "typeahead"
+  ],
+  "author": "Anders Evenrud <andersevenrud@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andersevenrud/select-typeahead/issues"
+  },
+  "homepage": "https://github.com/andersevenrud/select-typeahead#readme"
+}
