@@ -11,6 +11,8 @@ Features:
 * Written for IE9+
 * Vanilla JS
 
+Demo: https://andersevenrud.github.io/projects/select-typeahead/examples/index.html
+
 ## Options:
 
 ```
