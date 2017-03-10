@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.5.6
+ * @version 0.5.7
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -421,7 +421,7 @@
    */
   SelectTypeahead.prototype._filter = function(reset) {
     var self = this;
-    if ( !this.loaded || (!this.currentText && !reset) ) {
+    if ( !this.loaded ) {
       return;
     }
 
