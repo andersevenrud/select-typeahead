@@ -75,6 +75,7 @@ Just use the included files. You can also get this package via [npm](https://www
 
 ## Changelog
 
+* **0.5.8** - Better scrollIntoView behaviour
 * **0.5.7** - Fixed filter not working when no initial value is selected
 * **0.5.6** - Close dropdown when open and click button
 * **0.5.5** - Updated removeLocale() and CSS

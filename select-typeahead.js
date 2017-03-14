@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.5.7
+ * @version 0.5.8
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -178,6 +178,17 @@
     }
 
     dropdown.appendChild(frag);
+  }
+
+  /*
+   * Scroll an element into view
+   */
+  function scrollIntoView(el) {
+    //This apparently makes screen jump
+    //el.scrollIntoView();
+
+    var target = el.parentNode;
+    target.scrollTop = el.offsetTop;
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -402,7 +413,7 @@
     this._$selected = entry;
     if ( this._$selected ) {
       this._$selected.classList.add('active');
-      this._$selected.scrollIntoView();
+      scrollIntoView(this._$selected);
     }
 
     this.currentIndex = idx;
@@ -497,7 +508,7 @@
     this.$input.focus();
 
     if ( this._$selected ) {
-      this._$selected.scrollIntoView();
+      scrollIntoView(this._$selected);
     }
   };
 
