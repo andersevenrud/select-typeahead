@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.5.8
+ * @version 0.5.9
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -208,6 +208,7 @@
    * @param {String}        [opts.buttonLabel='>']    A label for the button
    * @param {Array|String}  [opts.className]          A className to give the instance (or array)
    * @param {Boolean}       [opts.calcWidth=true]     Set the width of the widget
+   * @param {Boolean}       [opts.autoSelect=false]   Automatically select the first filter result
    */
   function SelectTypeahead(el, opts) {
     opts = opts || {};
@@ -218,6 +219,7 @@
     opts.buttonLabel = opts.buttonLabel || '>';
     opts.className = opts.className || [];
     opts.calcWidth = opts.calcWidth !== false;
+    opts.autoSelect = opts.autoSelect === true;
 
     el = getElementFromArg(el);
     if ( !el || el.tagName !== 'SELECT' ) {
@@ -290,6 +292,15 @@
 
     var timeout;
     var ignore = [9, 17, 16, 18, 39, 37]; // tab, ctrl, shift, alt, right, left
+
+    if ( this.options.autoSelect ) {
+      this.$input.addEventListener('keydown', function(ev) {
+        if ( ev.keyCode === 9 ) {
+          self._onKeyEnter();
+        }
+      });
+    }
+
     this.$input.addEventListener('keydown', function(ev) {
       timeout = clearTimeout(timeout);
       if ( ignore.indexOf(ev.keyCode) !== -1 ) {
@@ -297,6 +308,7 @@
       }
 
       var wasVisible = self._onKeyPress();
+
       if ( ev.keyCode === 38 ) {
         self._onKeyUp(wasVisible);
       } else if ( ev.keyCode === 40 ) {
@@ -309,7 +321,7 @@
         self._onKeyEsc();
       } else {
         timeout = setTimeout(function keyTimeout() {
-          self._filter();
+          self._filter(false);
         }, opts.keyTimeout);
       }
     });
@@ -400,7 +412,7 @@
   /*
    * Internal for setting selected entry
    */
-  SelectTypeahead.prototype._selectEntry = function(entry, setActive) {
+  SelectTypeahead.prototype._selectEntry = function(entry, setActive, setText) {
     var idx = entry ? parseInt(entry.getAttribute('data-index'), 10) : -1;
     var value = entry ? parseInt(entry.getAttribute('data-value'), 10) : null;
     var text = (idx !== null && idx >= 0) ? this.data[idx].label : '';
@@ -417,7 +429,9 @@
     }
 
     this.currentIndex = idx;
-    this.$input.value = text;
+    if ( setText ) {
+      this.$input.value = text;
+    }
 
     if ( setActive ) {
       this.$target.selectedIndex = idx;
@@ -454,24 +468,31 @@
       }
     });
 
-    this.$dropdown.scrollTop = 0;
     this.currentList = currentList;
 
-    if ( !reset ) {
-      this.currentIndex = -1;
-      this.tempIndex = -1;
+    if ( !reset && (this.options.autoSelect && currentList.length) ) {
+      this._setSelectedIndex(currentList[0].index, false, false, false);
+      this.tempIndex = 0;
+    } else {
+      this.$dropdown.scrollTop = 0;
+
+      if ( !reset ) {
+        this.currentIndex = -1;
+        this.tempIndex = -1;
+      }
     }
   };
 
   /*
    * Select entry by value, text or index
    */
-  SelectTypeahead.prototype._setSelectedIndex = function(index, setActive, setFocused) {
+  SelectTypeahead.prototype._setSelectedIndex = function(index, setActive, setFocused, setText) {
     setActive = setActive !== false;
     setFocused = setFocused !== false;
+    setText = setText !== false;
 
     var child = this.$dropdown.children[index];
-    this._selectEntry(child, setActive);
+    this._selectEntry(child, setActive, setText);
 
     // Deffer the text selection
     var self = this;
@@ -527,8 +548,9 @@
    * When esc key is pressed
    */
   SelectTypeahead.prototype._onKeyEsc = function() {
-    this._blur();
     this._filter(true);
+
+    this._blur();
   };
 
   /*
@@ -591,7 +613,7 @@
    */
   SelectTypeahead.prototype._onEntryClick = function(ev, entry) {
     if ( entry ) {
-      this._selectEntry(entry, true);
+      this._selectEntry(entry, true, true);
       this._hideDropdown();
     }
   };
