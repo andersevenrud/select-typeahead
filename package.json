@@ -1,6 +1,6 @@
 {
   "name": "select-typeahead",
-  "version": "0.5.9",
+  "version": "0.6.0",
   "description": "A configurable, super simple and extremely fast typeahead solution for `<select>` elements.",
   "main": "select-typeahead.js",
   "directories": {

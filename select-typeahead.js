@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.5.9
+ * @version 0.6.0
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -289,6 +289,9 @@
 
     this.$input = document.createElement('input');
     this.$input.type = 'text';
+    this.$input.setAttribute('autocomplete', 'off');
+    this.$input.setAttribute('autocorrect', 'off');
+    this.$input.setAttribute('spellcheck', 'false');
 
     var timeout;
     var ignore = [9, 17, 16, 18, 39, 37]; // tab, ctrl, shift, alt, right, left
