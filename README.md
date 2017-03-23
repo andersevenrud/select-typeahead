@@ -76,6 +76,7 @@ Just use the included files. You can also get this package via [npm](https://www
 
 ## Changelog
 
+* **0.6.2** - Prevent raising error on backspace when input is empty
 * **0.6.1** - Better autoSelect
 * **0.6.0** - Added blocking of autocomplete etc.
 * **0.5.9** - Added autoSelect parameter

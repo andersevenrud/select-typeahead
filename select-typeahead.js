@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.6.1
+ * @version 0.6.2
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -198,7 +198,7 @@
    */
   function findMostSignificant(input, arr) {
     if ( !input ) {
-      return;
+      return false;
     }
 
     input = input.toLowerCase();
@@ -509,9 +509,13 @@
 
     if ( !reset && (this.options.autoSelect && currentList.length) ) {
       var found = findMostSignificant(checkFor, currentList);
-      var select = currentList[found].index;
-      this._setSelectedIndex(select, false, false, false);
-      this.tempIndex = found;
+      if ( found !== false ) {
+        var select = currentList[found].index;
+        this._setSelectedIndex(select, false, false, false);
+        this.tempIndex = found;
+      } else {
+        this.tempIndex = -1;
+      }
     } else {
       this.$dropdown.scrollTop = 0;
 
