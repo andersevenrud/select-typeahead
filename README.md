@@ -26,6 +26,7 @@ Demo: https://andersevenrud.github.io/projects/select-typeahead/examples/index.h
 {String}        [opts.buttonLabel='>']    A label for the button
 {Array|String}  [opts.className]          A className to give the instance (or array)
 {Boolean}       [opts.calcWidth=true]     Set the width of the widget
+{Boolean}       [opts.autoSelect=false]   Automatically select the first filter result
 ```
 
 ## Usage:
@@ -75,6 +76,7 @@ Just use the included files. You can also get this package via [npm](https://www
 
 ## Changelog
 
+* **0.6.1** - Better autoSelect
 * **0.6.0** - Added blocking of autocomplete etc.
 * **0.5.9** - Added autoSelect parameter
 * **0.5.8** - Better scrollIntoView behaviour

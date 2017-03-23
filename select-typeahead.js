@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.6.0
+ * @version 0.6.1
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -49,7 +49,7 @@
    */
   function simpleMatch(input, entry) {
     input = input.toLowerCase();
-    entry = entry.toLowerCase();
+    entry = entry.toLowerCase();//.replace(/\s\(.*\)$/, '');
 
     return entry.substr(0, input.length) === input || entry.indexOf(input) !== -1;
   }
@@ -77,7 +77,9 @@
     var l = arr.length;
 
     for ( i; i < l; i++ ) {
-      cb(arr[i], i);
+      if ( cb(arr[i], i) === false ) {
+        break;
+      }
     }
   }
 
@@ -189,6 +191,36 @@
 
     var target = el.parentNode;
     target.scrollTop = el.offsetTop;
+  }
+
+  /*
+   * Finds most significant entry out of a list
+   */
+  function findMostSignificant(input, arr) {
+    if ( !input ) {
+      return;
+    }
+
+    input = input.toLowerCase();
+
+    var currentSig = -1;
+    var found = 0;
+
+    // We find the entry that has the match as early in the string
+    // as possible.
+    forEach(arr, function(entry, idx) {
+      var pos = entry.text.toLowerCase().indexOf(input);
+      if ( currentSig === -1 || pos < currentSig ) {
+        currentSig = pos;
+        found = idx;
+      }
+
+      if ( currentSig === 0 ) {
+        return false;
+      }
+    });
+
+    return found;
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -471,11 +503,15 @@
       }
     });
 
+    //simpleSort(checkFor, currentList);
+
     this.currentList = currentList;
 
     if ( !reset && (this.options.autoSelect && currentList.length) ) {
-      this._setSelectedIndex(currentList[0].index, false, false, false);
-      this.tempIndex = 0;
+      var found = findMostSignificant(checkFor, currentList);
+      var select = currentList[found].index;
+      this._setSelectedIndex(select, false, false, false);
+      this.tempIndex = found;
     } else {
       this.$dropdown.scrollTop = 0;
 
