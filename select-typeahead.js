@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.6.2
+ * @version 0.6.3
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -49,9 +49,14 @@
    */
   function simpleMatch(input, entry) {
     input = input.toLowerCase();
-    entry = entry.toLowerCase();//.replace(/\s\(.*\)$/, '');
+    entry = entry.toLowerCase();
 
-    return entry.substr(0, input.length) === input || entry.indexOf(input) !== -1;
+    var words = input.replace(/\s+/, ' ').split(' ');
+    var matches = words.filter(function(w) {
+      return entry.indexOf(w) !== -1;
+    });
+
+    return matches.length === words.length;
   }
 
   /*
