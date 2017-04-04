@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.6.5
+ * @version 0.6.6
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -38,6 +38,7 @@
     return str.replace(/[ÀÁÂÃÄÅÅÆ]/g, 'A')
       .replace(/[àáâãäåæ]/g, 'a')
       .replace(/[ÈÉÊË]/g, 'E')
+      .replace(/[èéêë]/g, 'e')
       .replace(/[ØÖ]/g, 'O')
       .replace(/[øö]/g, 'o')
       .replace(/\s+/g, ' ')
