@@ -26,7 +26,7 @@ Demo: https://andersevenrud.github.io/projects/select-typeahead/examples/index.h
 {String}        [opts.buttonLabel='>']    A label for the button
 {Array|String}  [opts.className]          A className to give the instance (or array)
 {Boolean}       [opts.calcWidth=true]     Set the width of the widget
-{Boolean}       [opts.autoSelect=false]   Automatically select the first filter result
+{Boolean}       [opts.autoSelect=false]   Automatically select the "best" result
 ```
 
 ## Usage:
@@ -76,6 +76,7 @@ Just use the included files. You can also get this package via [npm](https://www
 
 ## Changelog
 
+* **0.6.4** - Changed behaviour in most significant selector
 * **0.6.3** - Better matching of multiple words
 * **0.6.2** - Prevent raising error on backspace when input is empty
 * **0.6.1** - Better autoSelect

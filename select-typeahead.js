@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.6.3
+ * @version 0.6.4
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -214,7 +214,18 @@
     // We find the entry that has the match as early in the string
     // as possible.
     forEach(arr, function(entry, idx) {
-      var pos = entry.text.toLowerCase().indexOf(input);
+      var iw = entry.text.toLowerCase();
+
+      //var pos = iw.indexOf(input);
+      var pos = iw.split(' ').reduce(function(current, w) {
+        // Take the first word that matches the highest (or lowest index)
+        var wp = w.indexOf(input);
+        if ( current === -1 || wp < current ) {
+          return wp;
+        }
+        return current;
+      }, -1);
+
       if ( currentSig === -1 || pos < currentSig ) {
         currentSig = pos;
         found = idx;
