@@ -76,6 +76,7 @@ Just use the included files. You can also get this package via [npm](https://www
 
 ## Changelog
 
+* **0.6.5** - Cleanup of scoring in most significant behaviour
 * **0.6.4** - Changed behaviour in most significant selector
 * **0.6.3** - Better matching of multiple words
 * **0.6.2** - Prevent raising error on backspace when input is empty
