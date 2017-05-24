@@ -76,6 +76,7 @@ Just use the included files. You can also get this package via [npm](https://www
 
 ## Changelog
 
+* **0.6.7** - Fixed usage with string values/keys
 * **0.6.6** - Updated locale scrubbing
 * **0.6.5** - Cleanup of scoring in most significant behaviour
 * **0.6.4** - Changed behaviour in most significant selector

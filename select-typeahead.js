@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.6.6
+ * @version 0.6.7
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -459,8 +459,12 @@
    */
   SelectTypeahead.prototype._selectEntry = function(entry, setActive, setText) {
     var idx = entry ? parseInt(entry.getAttribute('data-index'), 10) : -1;
-    var value = entry ? parseInt(entry.getAttribute('data-value'), 10) : null;
+    var value = entry ? entry.getAttribute('data-value') : null;
     var text = (idx !== null && idx >= 0) ? this.data[idx].label : '';
+
+    if ( value !== null && !isNaN(Number(value)) ) {
+      value = parseInt(value, 10);
+    }
 
     this._$previousSelected = this._$selected;
     if ( this._$previousSelected ) {
