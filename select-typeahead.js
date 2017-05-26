@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.6.9
+ * @version 0.7.0
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -475,7 +475,7 @@
   /*
    * Internal for setting selected entry
    */
-  SelectTypeahead.prototype._selectEntry = function(entry, setActive, setText) {
+  SelectTypeahead.prototype._selectEntry = function(entry, setActive, setText, triggerEvent) {
     var idx = entry ? parseInt(entry.getAttribute('data-index'), 10) : -1;
     var value = entry ? entry.getAttribute('data-value') : null;
     var text = (idx !== null && idx >= 0) ? this.data[idx].label : '';
@@ -507,11 +507,21 @@
       this.currentText = text;
     }
 
-    return {
+    var entryData = {
       index: idx,
       value: value,
       text: text
     };
+
+    if ( triggerEvent ) {
+      var ev = new CustomEvent('select', {
+        detail: entryData
+      });
+
+      this.$target.dispatchEvent(ev);
+    }
+
+    return entryData;
   };
 
   /*
@@ -574,7 +584,7 @@
     triggerEvent = triggerEvent === true;
 
     var child = this.$dropdown.children[index];
-    var entry = this._selectEntry(child, setActive, setText);
+    var entry = this._selectEntry(child, setActive, setText, triggerEvent);
 
     // Deffer the text selection
     var self = this;
@@ -582,14 +592,6 @@
       setTimeout(function selectTimeout() {
         self.$input.setSelectionRange(0, self.$input.value.length);
       }, 1);
-    }
-
-    if ( triggerEvent ) {
-      var ev = new CustomEvent('select', {
-        detail: entry
-      });
-
-      this.$target.dispatchEvent(ev);
     }
   };
 
@@ -703,7 +705,7 @@
    */
   SelectTypeahead.prototype._onEntryClick = function(ev, entry) {
     if ( entry ) {
-      this._selectEntry(entry, true, true);
+      this._selectEntry(entry, true, true, true);
       this._hideDropdown();
     }
   };
