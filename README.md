@@ -77,6 +77,7 @@ Just use the included files. You can also get this package via [npm](https://www
 
 ## Changelog
 
+* **0.6.9** - Added 'selected' event and 'setSelectedIndex' trigger
 * **0.6.8** - Added placeholder support
 * **0.6.7** - Fixed usage with string values/keys
 * **0.6.6** - Updated locale scrubbing

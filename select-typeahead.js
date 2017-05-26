@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.6.8
+ * @version 0.6.9
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -311,6 +311,10 @@
     var el = this.$target;
     var opts = this.options;
 
+    this.$target.addEventListener('setSelectedIndex', function(ev) {
+      self._setSelectedIndex(ev.detail, true, true, true);
+    }, false);
+
     this.$element = document.createElement('div');
     this.$element.className = this.classNames.join(' ');
     if ( opts.calcWidth && el.offsetWidth ) {
@@ -410,7 +414,7 @@
     createDropdown(this.data, this.$dropdown);
     el.parentNode.insertBefore(this.$element, el);
     if ( el.selectedIndex >= 0 ) {
-      this._setSelectedIndex(el.selectedIndex, true, false);
+      this._setSelectedIndex(el.selectedIndex, true, false, true, true);
     }
 
     if ( !opts.debug ) {
@@ -502,6 +506,12 @@
       this.tempIndex = idx;
       this.currentText = text;
     }
+
+    return {
+      index: idx,
+      value: value,
+      text: text
+    };
   };
 
   /*
@@ -557,13 +567,14 @@
   /*
    * Select entry by value, text or index
    */
-  SelectTypeahead.prototype._setSelectedIndex = function(index, setActive, setFocused, setText) {
+  SelectTypeahead.prototype._setSelectedIndex = function(index, setActive, setFocused, setText, triggerEvent) {
     setActive = setActive !== false;
     setFocused = setFocused !== false;
     setText = setText !== false;
+    triggerEvent = triggerEvent === true;
 
     var child = this.$dropdown.children[index];
-    this._selectEntry(child, setActive, setText);
+    var entry = this._selectEntry(child, setActive, setText);
 
     // Deffer the text selection
     var self = this;
@@ -571,6 +582,14 @@
       setTimeout(function selectTimeout() {
         self.$input.setSelectionRange(0, self.$input.value.length);
       }, 1);
+    }
+
+    if ( triggerEvent ) {
+      var ev = new CustomEvent('select', {
+        detail: entry
+      });
+
+      this.$target.dispatchEvent(ev);
     }
   };
 
@@ -609,7 +628,7 @@
    */
   SelectTypeahead.prototype._onKeyEnter = function() {
     if ( this.currentIndex >= 0 ) {
-      this._setSelectedIndex(this.currentIndex);
+      this._setSelectedIndex(this.currentIndex, true, true, true, true);
     }
     this._hideDropdown();
     this._filter(true);
