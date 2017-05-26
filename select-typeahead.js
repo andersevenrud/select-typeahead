@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.6.7
+ * @version 0.6.8
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -251,6 +251,7 @@
    * @param {Array|String}  [opts.className]          A className to give the instance (or array)
    * @param {Boolean}       [opts.calcWidth=true]     Set the width of the widget
    * @param {Boolean}       [opts.autoSelect=false]   Automatically select the first filter result
+   * @param {String}        [opts.placeholder=true]   Placeholder string (or true for autodetect)
    */
   function SelectTypeahead(el, opts) {
     opts = opts || {};
@@ -416,6 +417,19 @@
       el.style.display = 'none';
     }
     el.setAttribute('data-select-typeahead', 'true');
+
+    if ( this.options.placeholder !== false ) {
+      var placeholder;
+
+      if ( this.options.placeholder === true || (typeof this.options.placeholder === 'undefined') ) {
+        placeholder = this.$target.getAttribute('placeholder') ||
+          this.$target.getAttribute('data-placeholder');
+      } else {
+        placeholder = this.options.placeholder;
+      }
+
+      this.$input.placeholder = placeholder || '';
+    }
 
     this.tempIndex = this.currentIndex;
     this.loaded = true;

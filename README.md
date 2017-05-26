@@ -27,6 +27,7 @@ Demo: https://andersevenrud.github.io/projects/select-typeahead/examples/index.h
 {Array|String}  [opts.className]          A className to give the instance (or array)
 {Boolean}       [opts.calcWidth=true]     Set the width of the widget
 {Boolean}       [opts.autoSelect=false]   Automatically select the "best" result
+{String}        [opts.placeholder=true]   Placeholder string (or true for autodetect)
 ```
 
 ## Usage:
@@ -76,6 +77,7 @@ Just use the included files. You can also get this package via [npm](https://www
 
 ## Changelog
 
+* **0.6.8** - Added placeholder support
 * **0.6.7** - Fixed usage with string values/keys
 * **0.6.6** - Updated locale scrubbing
 * **0.6.5** - Cleanup of scoring in most significant behaviour
