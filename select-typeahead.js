@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.7.0
+ * @version 0.7.1
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -414,7 +414,9 @@
     createDropdown(this.data, this.$dropdown);
     el.parentNode.insertBefore(this.$element, el);
     if ( el.selectedIndex >= 0 ) {
-      this._setSelectedIndex(el.selectedIndex, true, false, true, true);
+      if ( !(el.selectedIndex === 0 && this.options.placeholder && el.value === '') ) {
+        this._setSelectedIndex(el.selectedIndex, true, false, true, true);
+      }
     }
 
     if ( !opts.debug ) {

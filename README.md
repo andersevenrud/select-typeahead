@@ -77,6 +77,7 @@ Just use the included files. You can also get this package via [npm](https://www
 
 ## Changelog
 
+* **0.7.1** - If using placeholder ignore empty default value
 * **0.7.0** - Updated some external triggers
 * **0.6.9** - Added 'selected' event and 'setSelectedIndex' trigger
 * **0.6.8** - Added placeholder support
