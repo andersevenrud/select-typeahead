@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.7.1
+ * @version 0.7.2
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -314,6 +314,13 @@
     this.$target.addEventListener('setSelectedIndex', function(ev) {
       self._setSelectedIndex(ev.detail, true, true, true);
     }, false);
+
+    this.$target.addEventListener('_update', function(ev) {
+      var selectedIndex = this.selectedIndex;
+      if ( selectedIndex >= 0 ) {
+        self._setSelectedIndex(selectedIndex, false, false, true, false);
+      }
+    });
 
     this.$element = document.createElement('div');
     this.$element.className = this.classNames.join(' ');
