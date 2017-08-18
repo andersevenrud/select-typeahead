@@ -23,7 +23,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @version 0.7.2
+ * @version 0.7.3
  * @package SelectTypeahead
  * @author Anders Evenrud <andersevenrud@gmail.com>
  * @license MIT
@@ -250,6 +250,7 @@
    * @param {String}        [opts.buttonLabel='>']    A label for the button
    * @param {Array|String}  [opts.className]          A className to give the instance (or array)
    * @param {Boolean}       [opts.calcWidth=true]     Set the width of the widget
+   * @param {Boolean}       [opts.tabSelect=false]    Tab-ing out from dropdown acts as enter
    * @param {Boolean}       [opts.autoSelect=false]   Automatically select the first filter result
    * @param {String}        [opts.placeholder=true]   Placeholder string (or true for autodetect)
    */
@@ -263,6 +264,7 @@
     opts.className = opts.className || [];
     opts.calcWidth = opts.calcWidth !== false;
     opts.autoSelect = opts.autoSelect === true;
+    opts.tabSelect = opts.tabSelect === true;
 
     el = getElementFromArg(el);
     if ( !el || el.tagName !== 'SELECT' ) {
@@ -350,7 +352,7 @@
     var timeout;
     var ignore = [9, 17, 16, 18, 39, 37]; // tab, ctrl, shift, alt, right, left
 
-    if ( this.options.autoSelect ) {
+    if ( this.options.autoSelect || this.options.tabSelect ) {
       this.$input.addEventListener('keydown', function(ev) {
         if ( ev.keyCode === 9 ) {
           self._onKeyEnter();

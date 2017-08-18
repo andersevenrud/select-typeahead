@@ -77,6 +77,7 @@ Just use the included files. You can also get this package via [npm](https://www
 
 ## Changelog
 
+* **0.7.3** - Added 'tabSelect' option
 * **0.7.2** - Added '_update' event for refreshing current selection
 * **0.7.1** - If using placeholder ignore empty default value
 * **0.7.0** - Updated some external triggers
