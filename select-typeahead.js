@@ -30,7 +30,7 @@
  */
 (function() {
   'use strict';
-
+  
   /*
    * Replace localized characters
    */
@@ -131,12 +131,11 @@
   function fillNodes(el, fn, datas) {
     var option, text;
     var data = [];
-    var frag = document.createDocumentFragment();
+    //var frag = document.createDocumentFragment();
+    var arr = [];
     for ( var i in datas ) {
+      arr.push('<option value="' + String(i) + '">' + text + '</option> ');
       var text = datas[i];
-      var option = new Option(text, i);
-      frag.appendChild(option);
-
       data.push({
         index: data.length,
         value: i,
@@ -144,9 +143,7 @@
         text: String(fn(text)).trim()
       });
     }
-
-    el.innerHTML = '';
-    el.appendChild(frag);
+    el.innerHTML = arr.join('');
     return data;
   }
 
@@ -168,24 +165,16 @@
    * for the dropdown
    */
   function createDropdown(data, dropdown) {
-    var frag = document.createDocumentFragment();
+    //var frag = document.createDocumentFragment();
 
-    var i = 0, l = data.length, v, e, s;
+    var i = 0, l = data.length, v, e;
+    var arr = [];
     for ( i; i < l; i++ ) {
       v = data[i];
-
-      e = document.createElement('li');
-      e.setAttribute('data-index', String(i));
-      e.setAttribute('data-value', String(v.value));
-
-      s = document.createElement('span');
-      s.appendChild(document.createTextNode(v.label));
-
-      e.appendChild(s);
-      frag.appendChild(e);
+      e = '<li data-index="' + String(i) + '" data-value="' + String(v.value) + '"><span>' + v.label + '</span></li>'
+      arr.push(e);
     }
-
-    dropdown.appendChild(frag);
+    dropdown.innerHTML = arr.join('');
   }
 
   /*
