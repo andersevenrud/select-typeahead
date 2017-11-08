@@ -73,10 +73,13 @@ fnMatch: function(input, entry) {
 
 ## Installation
 
-Just use the included files. You can also get this package via [npm](https://www.npmjs.com/package/select-typeahead).
+Use the included files in `dist/`.
+
+Available via [npm](https://www.npmjs.com/package/select-typeahead).
 
 ## Changelog
 
+* **0.8.0** - Now bundled
 * **0.7.3** - Added 'tabSelect' option
 * **0.7.2** - Added '_update' event for refreshing current selection
 * **0.7.1** - If using placeholder ignore empty default value
